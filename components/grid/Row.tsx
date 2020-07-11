@@ -1,17 +1,25 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Cell from './Cell';
+import { Coordinate } from './Types';
+import { Dimensions } from './Constants';
 
 interface RowProps {
-  numberOfColumns: number;
+  rowIndex: number;
+  headCoordinate: Coordinate;
 }
 
-export default function Row({ numberOfColumns }: RowProps) {
-  const columns = [...new Array(numberOfColumns).keys()];
+export default function Row({ rowIndex, headCoordinate }: RowProps) {
+  const columns = [...new Array(Dimensions.gridSize).keys()];
   return (
     <View style={styles.rows}>
-      {columns.map(() => (
-        <Cell />
+      {columns.map((columnIndex) => (
+        <Cell
+          headCoordinate={headCoordinate}
+          key={`cell-${rowIndex}-${columnIndex}`}
+          rowIndex={rowIndex}
+          columnIndex={columnIndex}
+        />
       ))}
     </View>
   );
