@@ -1,16 +1,17 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import Coordinate from '../../models/Coordinate';
+import { StyleSheet, View, Dimensions } from 'react-native';
+import CellCoordinate from '../../models/Coordinate';
+import Dimension from '../../constants/Dimension';
 
 interface CellProps {
   rowIndex: number;
   columnIndex: number;
-  headCoordinate: Coordinate;
+  headCoordinate: CellCoordinate;
 }
 
 const styles = StyleSheet.create({
   cell: {
-    width: 60,
+    width: Dimension.squareSideLength,
     borderWidth: 2,
     borderColor: '#000',
   },
@@ -33,5 +34,3 @@ export default function Cell({
   );
   return <View style={style} />;
 }
-
-

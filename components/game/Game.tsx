@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Direction from '../../models/Direction';
-import Coordinate from '../../models/Coordinate';
+import CellCoordinate from '../../models/Coordinate';
 import Dimension from '../../constants/Dimension';
 import Grid from '../grid/Grid';
 import Rotate from '../controls/DebugRotate';
+import SwipeDirectionControl from '../controls/SwipeDirectionControl';
 
 function addWithOverflow(coordinate: number, increment: number) {
   const resultWithoutOverflow = coordinate + increment;
@@ -14,9 +15,9 @@ function addWithOverflow(coordinate: number, increment: number) {
 }
 
 function moveHeadByOne(
-  coordinate: Coordinate,
+  coordinate: CellCoordinate,
   direction: Direction
-): Coordinate {
+): CellCoordinate {
   if (direction === Direction.UP) {
     return {
       row: addWithOverflow(coordinate.row, -1),
@@ -62,11 +63,13 @@ export default function Game() {
     <>
       <Rotate
         currentDirection={headDirection}
-        updateDirection={(direction: Direction) => {
-          setHeadDirection(direction);
-        }}
+        updateDirection={(direction) => setHeadDirection(direction)}
       />
-      <Grid headCoordinate={headCoordinate} />
+      <SwipeDirectionControl
+        updateDirection={(direction) => setHeadDirection(direction)}
+      >
+        <Grid headCoordinate={headCoordinate} />
+      </SwipeDirectionControl>
     </>
   );
 }

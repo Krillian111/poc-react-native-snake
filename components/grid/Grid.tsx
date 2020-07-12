@@ -2,10 +2,10 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Row from './Row';
 import Dimension from '../../constants/Dimension';
-import Coordinate from '../../models/Coordinate';
+import CellCoordinate from '../../models/Coordinate';
 
 interface GridProps {
-  headCoordinate: Coordinate;
+  headCoordinate: CellCoordinate;
 }
 
 const styles = StyleSheet.create({

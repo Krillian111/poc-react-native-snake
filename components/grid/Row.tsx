@@ -2,16 +2,16 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Cell from './Cell';
 import Dimension from '../../constants/Dimension';
-import Coordinate from '../../models/Coordinate';
+import CellCoordinate from '../../models/Coordinate';
 
 interface RowProps {
   rowIndex: number;
-  headCoordinate: Coordinate;
+  headCoordinate: CellCoordinate;
 }
 
 const styles = StyleSheet.create({
   rows: {
-    height: 60,
+    height: Dimension.squareSideLength,
     flexDirection: 'row',
   },
 });
@@ -31,5 +31,3 @@ export default function Row({ rowIndex, headCoordinate }: RowProps) {
     </View>
   );
 }
-
-

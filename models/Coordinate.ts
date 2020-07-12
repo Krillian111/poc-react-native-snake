@@ -1,4 +1,4 @@
-export default interface Coordinate {
+export default interface CellCoordinate {
   row: number;
   column: number;
 }
