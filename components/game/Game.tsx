@@ -3,7 +3,7 @@ import Direction from '../../models/Direction';
 import Coordinate from '../../models/Coordinate';
 import Dimension from '../../constants/Dimension';
 import Grid from '../grid/Grid';
-import Rotate from '../controls/Rotate';
+import Rotate from '../controls/DebugRotate';
 
 function addWithOverflow(coordinate: number, increment: number) {
   const resultWithoutOverflow = coordinate + increment;

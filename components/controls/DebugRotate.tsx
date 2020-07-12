@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 });
 
 
-export default function Rotate({
+export default function DebugRotate({
   currentDirection,
   updateDirection,
 }: RotateProps) {
