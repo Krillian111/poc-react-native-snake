@@ -8,6 +8,7 @@ import GameSettings from '../../constants/GameSettings';
 interface RowProps {
   rowIndex: number;
   snake: Array<CellCoordinate>;
+  food: CellCoordinate;
 }
 
 const styles = StyleSheet.create({
@@ -17,13 +18,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Row({ rowIndex, snake }: RowProps) {
+export default function Row({ rowIndex, snake, food }: RowProps) {
   const columns = [...new Array(GameSettings.numberOfSquaresAlongAxis).keys()];
   return (
     <View style={styles.rows}>
       {columns.map((columnIndex) => (
         <Cell
           snake={snake}
+          food={food}
           key={`cell-${rowIndex}-${columnIndex}`}
           rowIndex={rowIndex}
           columnIndex={columnIndex}

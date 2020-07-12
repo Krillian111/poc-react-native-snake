@@ -32,9 +32,14 @@ export default function Game() {
     return () => clearInterval(timeoutId);
   }, [headDirection, snake]);
 
+  const [food, setFood] = useState({
+    row: 2,
+    column: 2,
+  });
+
   return (
     <View style={styles.game}>
-      <Grid snake={snake} />
+      <Grid snake={snake} food={food} />
       <SwipeDirectionControl
         updateDirection={(direction) => setHeadDirection(direction)}
       />

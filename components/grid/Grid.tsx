@@ -7,6 +7,7 @@ import GameSettings from '../../constants/GameSettings';
 
 interface GridProps {
   snake: Array<CellCoordinate>;
+  food: CellCoordinate;
 }
 
 const styles = StyleSheet.create({
@@ -16,12 +17,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Grid({ snake }: GridProps) {
+export default function Grid({ snake, food }: GridProps) {
   const rows = [...new Array(GameSettings.numberOfSquaresAlongAxis).keys()];
   return (
     <View style={styles.grid}>
       {rows.map((rowIndex) => (
-        <Row snake={snake} key={`row-${rowIndex}`} rowIndex={rowIndex} />
+        <Row
+          snake={snake}
+          food={food}
+          key={`row-${rowIndex}`}
+          rowIndex={rowIndex}
+        />
       ))}
     </View>
   );
