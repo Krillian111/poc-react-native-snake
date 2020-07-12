@@ -69,6 +69,7 @@ export default function Game() {
     <View style={styles.game}>
       <Grid snake={snake} food={food} />
       <SwipeDirectionControl
+        currentDirection={headDirection}
         updateDirection={(direction) => setHeadDirection(direction)}
       />
     </View>

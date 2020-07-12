@@ -29,6 +29,13 @@ function computeSwipeDirection(
   return undefined;
 }
 
+function isValidDirection(current: Direction, update: Direction) {
+  if (current === Direction.UP || current === Direction.DOWN) {
+    return update === Direction.LEFT || update === Direction.RIGHT;
+  }
+  return update === Direction.UP || update === Direction.DOWN;
+}
+
 const styles = StyleSheet.create({
   swipeContainer: {
     backgroundColor: '#30b6ff',
@@ -39,11 +46,13 @@ const styles = StyleSheet.create({
 });
 
 interface SwipeDirectionControlProps {
+  currentDirection: Direction;
   updateDirection: (direction: Direction) => void;
 }
 
 /** using negotiation methods from  https://reactnative.dev/docs/gesture-responder-system */
 export default function SwipeDirectionControl({
+  currentDirection,
   updateDirection,
 }: SwipeDirectionControlProps) {
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
@@ -60,7 +69,7 @@ export default function SwipeDirectionControl({
           x: locationX,
           y: locationY,
         });
-        if (newDirection) {
+        if (newDirection && isValidDirection(currentDirection, newDirection)) {
           updateDirection(newDirection);
         }
       }}
