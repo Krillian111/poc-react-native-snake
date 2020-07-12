@@ -6,7 +6,7 @@ import Dimension from '../../constants/Dimension';
 interface CellProps {
   rowIndex: number;
   columnIndex: number;
-  headCoordinate: CellCoordinate;
+  snake: Array<CellCoordinate>;
 }
 
 const styles = StyleSheet.create({
@@ -20,19 +20,28 @@ const styles = StyleSheet.create({
   snakeHead: {
     backgroundColor: '#f00',
   },
-  empty: {},
+  body: {
+    backgroundColor: '#0f0',
+  },
 });
 
-export default function Cell({
-  rowIndex,
-  columnIndex,
-  headCoordinate,
-}: CellProps) {
-  const isHeadCell =
-    rowIndex === headCoordinate.row && columnIndex === headCoordinate.column;
-  const style = StyleSheet.compose(
-    styles.cell,
-    isHeadCell ? styles.snakeHead : styles.empty
-  );
-  return <View style={style} />;
+function equals(cell1: CellCoordinate, cell2: CellCoordinate) {
+  return cell1.row === cell2.row && cell1.column === cell2.column;
+}
+
+export default function Cell({ rowIndex, columnIndex, snake }: CellProps) {
+  const cellCoordinates = { row: rowIndex, column: columnIndex };
+  const head = snake[snake.length - 1];
+  const isHeadCell = equals(cellCoordinates, head);
+  const isBodyCell = snake
+    .slice(0, snake.length - 1)
+    .some((bodyPart) => equals(cellCoordinates, bodyPart));
+  const cellStyle: Array<any> = [styles.cell];
+  if (isBodyCell) {
+    cellStyle.push(styles.body);
+  }
+  if (isHeadCell) {
+    cellStyle.push(styles.snakeHead);
+  }
+  return <View style={cellStyle} />;
 }

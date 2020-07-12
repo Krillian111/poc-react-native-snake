@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Direction from '../../models/Direction';
-import CellCoordinate from '../../models/Coordinate';
-import Dimension from '../../constants/Dimension';
 import Grid from '../grid/Grid';
 import SwipeDirectionControl from '../controls/SwipeDirectionControl';
+import moveSnakeByOne from './movement';
+import GameSettings from '../../constants/GameSettings';
 
 const styles = StyleSheet.create({
   game: {
@@ -18,62 +18,23 @@ const styles = StyleSheet.create({
   },
 });
 
-function addWithOverflow(coordinate: number, increment: number) {
-  const resultWithoutOverflow = coordinate + increment;
-  if (resultWithoutOverflow < 0) {
-    return Dimension.gridCellsPerAxis - 1;
-  }
-  return resultWithoutOverflow % Dimension.gridCellsPerAxis;
-}
-
-function moveHeadByOne(
-  coordinate: CellCoordinate,
-  direction: Direction
-): CellCoordinate {
-  if (direction === Direction.UP) {
-    return {
-      row: addWithOverflow(coordinate.row, -1),
-      column: coordinate.column,
-    };
-  }
-  if (direction === Direction.DOWN) {
-    return {
-      row: addWithOverflow(coordinate.row, 1),
-      column: coordinate.column,
-    };
-  }
-  if (direction === Direction.LEFT) {
-    return {
-      row: coordinate.row,
-      column: addWithOverflow(coordinate.column, -1),
-    };
-  }
-  if (direction === Direction.RIGHT) {
-    return {
-      row: coordinate.row,
-      column: addWithOverflow(coordinate.column, 1),
-    };
-  }
-  throw new Error(`unknown moveByOne direction ${direction}`);
-}
-
 export default function Game() {
-  const [headCoordinate, setHeadCoordinate] = useState({
-    row: 4,
-    column: 4,
-  });
+  const [snake, setSnake] = useState([
+    { row: 4, column: 6 },
+    { row: 4, column: 5 },
+    { row: 4, column: 4 },
+  ]);
   const [headDirection, setHeadDirection] = useState(Direction.UP);
   useEffect(() => {
-    const timeoutId = setTimeout(
-      () => setHeadCoordinate(moveHeadByOne(headCoordinate, headDirection)),
-      500
-    );
+    const timeoutId = setTimeout(() => {
+      setSnake(moveSnakeByOne(snake, headDirection));
+    }, GameSettings.updateInterval);
     return () => clearInterval(timeoutId);
-  }, [headDirection, headCoordinate]);
+  }, [headDirection, snake]);
 
   return (
     <View style={styles.game}>
-      <Grid headCoordinate={headCoordinate} />
+      <Grid snake={snake} />
       <SwipeDirectionControl
         updateDirection={(direction) => setHeadDirection(direction)}
       />
