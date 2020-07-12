@@ -3,10 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import Direction from '../../models/Direction';
 import Grid from '../grid/Grid';
 import SwipeDirectionControl from '../controls/SwipeDirectionControl';
-import moveSnakeByOne from './movement';
-import GameSettings from '../../constants/GameSettings';
-import { generateNewFoodSpawn, isSnakeEatingThisTurn } from './food';
-import CellCoordinate from '../../models/Coordinate';
+import handleGameTick from './tick';
 
 const styles = StyleSheet.create({
   game: {
@@ -19,28 +16,6 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
 });
-
-function handleGameTick(
-  headDirection: Direction,
-  snake: Array<CellCoordinate>,
-  setSnake: (snake: Array<CellCoordinate>) => void,
-  snakeHasEatenLastTurn: boolean,
-  setSnakeHasEaten: (hasEaten: boolean) => void,
-  food: CellCoordinate,
-  setFood: (newFood: CellCoordinate) => void
-) {
-  const timeoutId = setTimeout(() => {
-    setSnake(moveSnakeByOne(snake, headDirection, snakeHasEatenLastTurn));
-    if (snakeHasEatenLastTurn) {
-      setSnakeHasEaten(false);
-    }
-    if (isSnakeEatingThisTurn(snake, food)) {
-      setSnakeHasEaten(true);
-      setFood(generateNewFoodSpawn(food, snake));
-    }
-  }, GameSettings.updateInterval);
-  return () => clearInterval(timeoutId);
-}
 
 export default function Game() {
   const [snake, setSnake] = useState([
