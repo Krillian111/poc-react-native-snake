@@ -8,6 +8,18 @@ interface CellProps {
   headCoordinate: Coordinate;
 }
 
+const styles = StyleSheet.create({
+  cell: {
+    width: 60,
+    borderWidth: 2,
+    borderColor: '#000',
+  },
+  snakeHead: {
+    backgroundColor: '#f00',
+  },
+  empty: {},
+});
+
 export default function Cell({
   rowIndex,
   columnIndex,
@@ -22,14 +34,4 @@ export default function Cell({
   return <View style={style} />;
 }
 
-const styles = StyleSheet.create({
-  cell: {
-    width: 60,
-    borderWidth: 2,
-    borderColor: '#000',
-  },
-  snakeHead: {
-    backgroundColor: '#f00',
-  },
-  empty: {},
-});
+

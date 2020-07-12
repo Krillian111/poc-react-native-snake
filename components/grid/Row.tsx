@@ -9,6 +9,13 @@ interface RowProps {
   headCoordinate: Coordinate;
 }
 
+const styles = StyleSheet.create({
+  rows: {
+    height: 60,
+    flexDirection: 'row',
+  },
+});
+
 export default function Row({ rowIndex, headCoordinate }: RowProps) {
   const columns = [...new Array(Dimension.gridSize).keys()];
   return (
@@ -25,9 +32,4 @@ export default function Row({ rowIndex, headCoordinate }: RowProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  rows: {
-    height: 60,
-    flexDirection: 'row',
-  },
-});
+

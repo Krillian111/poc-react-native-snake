@@ -8,6 +8,13 @@ interface GridProps {
   headCoordinate: Coordinate;
 }
 
+const styles = StyleSheet.create({
+  grid: {
+    flex: 1,
+  },
+});
+
+
 export default function Grid({ headCoordinate }: GridProps) {
   const rows = [...new Array(Dimension.gridSize).keys()];
   return (
@@ -23,8 +30,3 @@ export default function Grid({ headCoordinate }: GridProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  grid: {
-    flex: 1,
-  },
-});
