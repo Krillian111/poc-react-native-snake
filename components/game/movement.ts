@@ -43,9 +43,11 @@ function moveCellByOne(
 
 export default function moveSnakeByOne(
   snake: Array<CellCoordinate>,
-  direction: Direction
+  direction: Direction,
+  snakeHasEaten: boolean
 ): Array<CellCoordinate> {
   const head = snake[snake.length - 1];
   const newHead = moveCellByOne(head, direction);
-  return [...snake.slice(1), newHead];
+  const snakeStart = snakeHasEaten ? 0 : 1;
+  return [...snake.slice(snakeStart), newHead];
 }

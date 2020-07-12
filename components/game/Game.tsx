@@ -5,6 +5,8 @@ import Grid from '../grid/Grid';
 import SwipeDirectionControl from '../controls/SwipeDirectionControl';
 import moveSnakeByOne from './movement';
 import GameSettings from '../../constants/GameSettings';
+import { generateNewFoodSpawn, isSnakeEatingThisTurn } from './food';
+import CellCoordinate from '../../models/Coordinate';
 
 const styles = StyleSheet.create({
   game: {
@@ -18,6 +20,28 @@ const styles = StyleSheet.create({
   },
 });
 
+function handleGameTick(
+  headDirection: Direction,
+  snake: Array<CellCoordinate>,
+  setSnake: (snake: Array<CellCoordinate>) => void,
+  snakeHasEatenLastTurn: boolean,
+  setSnakeHasEaten: (hasEaten: boolean) => void,
+  food: CellCoordinate,
+  setFood: (newFood: CellCoordinate) => void
+) {
+  const timeoutId = setTimeout(() => {
+    setSnake(moveSnakeByOne(snake, headDirection, snakeHasEatenLastTurn));
+    if (snakeHasEatenLastTurn) {
+      setSnakeHasEaten(false);
+    }
+    if (isSnakeEatingThisTurn(snake, food)) {
+      setSnakeHasEaten(true);
+      setFood(generateNewFoodSpawn(food, snake));
+    }
+  }, GameSettings.updateInterval);
+  return () => clearInterval(timeoutId);
+}
+
 export default function Game() {
   const [snake, setSnake] = useState([
     { row: 4, column: 6 },
@@ -25,17 +49,21 @@ export default function Game() {
     { row: 4, column: 4 },
   ]);
   const [headDirection, setHeadDirection] = useState(Direction.UP);
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setSnake(moveSnakeByOne(snake, headDirection));
-    }, GameSettings.updateInterval);
-    return () => clearInterval(timeoutId);
-  }, [headDirection, snake]);
-
-  const [food, setFood] = useState({
-    row: 2,
-    column: 2,
-  });
+  const [snakeHasEaten, setSnakeHasEaten] = useState(false);
+  const [food, setFood] = useState({ row: 2, column: 2 });
+  useEffect(
+    () =>
+      handleGameTick(
+        headDirection,
+        snake,
+        setSnake,
+        snakeHasEaten,
+        setSnakeHasEaten,
+        food,
+        setFood
+      ),
+    [headDirection, snake, snakeHasEaten, food]
+  );
 
   return (
     <View style={styles.game}>

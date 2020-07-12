@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import CellCoordinate from '../../models/Coordinate';
+import CellCoordinate, { equals } from '../../models/Coordinate';
 import Dimension from '../../constants/Dimension';
 
 interface CellProps {
@@ -28,10 +28,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#00f',
   },
 });
-
-function equals(cell1: CellCoordinate, cell2: CellCoordinate) {
-  return cell1.row === cell2.row && cell1.column === cell2.column;
-}
 
 export default function Cell({
   rowIndex,
