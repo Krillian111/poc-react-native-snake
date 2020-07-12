@@ -41,28 +41,29 @@ function moveHeadByOne(
       column: addWithOverflow(coordinate.column, 1),
     };
   }
-  throw new Error(`unknown direction ${direction}`);
+  throw new Error(`unknown moveByOne direction ${direction}`);
 }
 
 export default function Game() {
-  const [headCoordinate, updateHeadCoordinate] = useState({
+  const [headCoordinate, setHeadCoordinate] = useState({
     row: 4,
     column: 4,
   });
-  const [headDirection, updateHeadDirection] = useState(Direction.UP);
+  const [headDirection, setHeadDirection] = useState(Direction.UP);
   useEffect(() => {
-    setTimeout(
-      () => updateHeadCoordinate(moveHeadByOne(headCoordinate, headDirection)),
+    const timeoutId = setTimeout(
+      () => setHeadCoordinate(moveHeadByOne(headCoordinate, headDirection)),
       500
     );
-  });
+    return () => clearInterval(timeoutId);
+  }, [headDirection, headCoordinate]);
 
   return (
     <>
       <Rotate
         currentDirection={headDirection}
         updateDirection={(direction: Direction) => {
-          updateHeadDirection(direction);
+          setHeadDirection(direction);
         }}
       />
       <Grid headCoordinate={headCoordinate} />
