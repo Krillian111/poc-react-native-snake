@@ -11,13 +11,13 @@ interface RowProps {
 
 const styles = StyleSheet.create({
   rows: {
-    height: Dimension.squareSideLength,
+    flexBasis: Dimension.squareAxisLength,
     flexDirection: 'row',
   },
 });
 
 export default function Row({ rowIndex, headCoordinate }: RowProps) {
-  const columns = [...new Array(Dimension.gridSize).keys()];
+  const columns = [...new Array(Dimension.gridCellsPerAxis).keys()];
   return (
     <View style={styles.rows}>
       {columns.map((columnIndex) => (

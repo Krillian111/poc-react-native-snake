@@ -10,13 +10,13 @@ interface GridProps {
 
 const styles = StyleSheet.create({
   grid: {
-    flex: 1,
+    flex: 2,
+    flexBasis: Dimension.gridAxisLength,
   },
 });
 
-
 export default function Grid({ headCoordinate }: GridProps) {
-  const rows = [...new Array(Dimension.gridSize).keys()];
+  const rows = [...new Array(Dimension.gridCellsPerAxis).keys()];
   return (
     <View style={styles.grid}>
       {rows.map((rowIndex) => (
@@ -29,4 +29,3 @@ export default function Grid({ headCoordinate }: GridProps) {
     </View>
   );
 }
-

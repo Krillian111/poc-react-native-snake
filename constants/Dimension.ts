@@ -1,7 +1,12 @@
+const squareSize = 40;
+const numberOfSquaresAlongAxis = 9;
+
 const Dimension = {
-  gridSize: 9,
-  minSwipeLength: 60,
-  squareSideLength: 60,
+  gridCellsPerAxis: numberOfSquaresAlongAxis,
+  minSwipeLength: 30,
+  squareAxisLength: squareSize,
+  swipeControlAxisLength: 200,
+  gridAxisLength: squareSize * numberOfSquaresAlongAxis,
 };
 
 export default Dimension;

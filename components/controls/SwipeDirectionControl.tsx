@@ -30,25 +30,26 @@ function computeSwipeDirection(
 }
 
 const styles = StyleSheet.create({
-  rotate: {
-    backgroundColor: '#00f',
+  swipeContainer: {
+    backgroundColor: '#30b6ff',
+    flexBasis: Dimension.swipeControlAxisLength,
+    flexShrink: 1,
+    flexGrow: 1,
   },
 });
 
 interface SwipeDirectionControlProps {
   updateDirection: (direction: Direction) => void;
-  children: React.ReactNode;
 }
 
 /** using negotiation methods from  https://reactnative.dev/docs/gesture-responder-system */
 export default function SwipeDirectionControl({
   updateDirection,
-  children,
 }: SwipeDirectionControlProps) {
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
   return (
     <View
-      style={styles.rotate}
+      style={styles.swipeContainer}
       onStartShouldSetResponder={() => true}
       onResponderGrant={({ nativeEvent: { locationX, locationY } }) => {
         setStartPosition({ x: locationX, y: locationY });
@@ -63,8 +64,6 @@ export default function SwipeDirectionControl({
           updateDirection(newDirection);
         }
       }}
-    >
-      {children}
-    </View>
+    />
   );
 }

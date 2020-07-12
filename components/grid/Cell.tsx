@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import CellCoordinate from '../../models/Coordinate';
 import Dimension from '../../constants/Dimension';
 
@@ -11,8 +11,10 @@ interface CellProps {
 
 const styles = StyleSheet.create({
   cell: {
-    width: Dimension.squareSideLength,
-    borderWidth: 2,
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: Dimension.squareAxisLength,
+    borderWidth: 1,
     borderColor: '#000',
   },
   snakeHead: {
