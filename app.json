@@ -21,6 +21,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Just a simple playground to build snake. It's a simple project for me to learn react native.",
+    "githubUrl": "https://github.com/Krillian111/poc-react-native-snake.git"
   }
 }
