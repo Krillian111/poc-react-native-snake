@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Coordinate } from './Types';
+import Coordinate from '../../models/Coordinate';
 
 interface CellProps {
   rowIndex: number;
