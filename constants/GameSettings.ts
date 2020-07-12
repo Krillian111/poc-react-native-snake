@@ -1,5 +1,5 @@
 const GameSettings = {
-  updateInterval: 500,
+  updateInterval: 100,
   numberOfSquaresAlongAxis: 9,
 };
 
